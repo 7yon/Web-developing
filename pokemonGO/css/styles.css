@@ -23,6 +23,11 @@ ul.hr li {
 	font-size: 18;
 	text-indent: 40px;
 }
+
+ul.forLi {
+    width: 1%;
+    margin: auto;
+}
 	
 li.list {
 	font-family: Century Gothic;
