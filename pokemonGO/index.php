@@ -1,17 +1,12 @@
 <!DOCTYPE html >
     <html>
-    `   <head>
+        <head>
             <meta http-equiv="Content-Type" content="text/html; charset=windows-1251"/>
             <title> PokemonGo </title>
 			<link rel="stylesheet" type="text/css" href="./css/styles.css">
         </head>
         <body class="pokemonGo">
-		    <ul class="hr"> 			 
-				<center><li><a href= "index.html" > <img src="./img/logo1.png" width = 100 height = 60 alt="Pokemon"></a></li>			
-				<li> <a class= "bord" href= "about.html"> About </a> </li>
-				<li> <a class= "bord" href= "start.html"> Start </a> </li>
-				<li> <a class= "bord" href= "topList.html"> Top List </a> </li> </center> 
-			</ul>
+        <?php include("Menu.php"); Menu::currentPage(0); ?>
 			<p>  </p>
 			<center> <img src="./img/pika.png" width = 350 height = 500 alt="Pikachu"> </center>
         </body>

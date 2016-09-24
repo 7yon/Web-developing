@@ -1,17 +1,12 @@
 <!DOCTYPE html >
 <html>
-    `   <head>
+       <head>
 			<meta http-equiv="Content-Type" content="text/html; charset=windows-1251"/>
             <title> About </title>
 			<link rel="stylesheet" type="text/css" href="./css/styles.css">
         </head>
         <body class = "about">
-		    <ul class="hr"> 
-			<center><li><a href= "index.html" > <img src="./img/logo1.png" width = 100 height = 60 alt="Pokemon"></a></li>			
-			<li> <a class ="bordActiveLink" href= "about.html"> About </a> </li>
-			<li> <a class="bord" href= "start.html"> Start </a> </li>
-			<li> <a class="bord" href= "topList.html"> Top List </a> </li> </center> 
-			</ul>
+			<?php include("Menu.php"); Menu::currentPage(1); ?>
 			<p class="styleText"><strong>ПОКЕМОН</strong>(Яп. - <i>покэтто монсута</i>; англ. Pokemon, от англ. Pocket Monster <i>карманный монстр</i>). само слово <i>ПОКЕМОН</i> обозначает существо, 
 			обладающее сверхъестественными способностями. На данный момент существует 
 			721 разновидность покемонов. Тренера обучают покемонов для сражений с покемонами других тренеров. <img src="./img/r.png" width = 230 height = 230 alt="Љоманда-R"class = "leftimg" >Бои проходят до момента, пока один из покемонов не падает 
