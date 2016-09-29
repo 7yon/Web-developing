@@ -4,10 +4,8 @@
             <meta http-equiv="Content-Type" content="text/html; charset=windows-1251"/>
             <title> PokemonGo </title>
 			<link rel="stylesheet" type="text/css" href="./css/styles.css">
-        </head>
-        <body class="pokemonGo">
-        <?php include("Menu.php"); Menu::currentPage(0); ?>
-			<p>  </p>
-			<center> <img src="./img/pika.png" width = 350 height = 500 alt="Pikachu"> </center>
+        </head> 
+        <body>
+        <?php require ('Menu.php'); require('Content.php'); Menu::currentPage($_GET['page']); Menu::getContent($_GET['page']);?>
         </body>
     </html>

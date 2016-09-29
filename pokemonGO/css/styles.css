@@ -46,24 +46,7 @@ p.styleText{
 	font-size: 18;
 	text-indent: 40px;
 }
-body.top {
-	background: url(../img/balls.png) no-repeat bottom center;
-	background-size: 1500px 800px;
-	background-color: white;
-	background-attachment: fixed;
-	overflow: auto;
-}
-body.about{
-	background-color: #FDF5FF;
-}
-body.start{
-	background: url(../img/startPic.png) no-repeat bottom center;
-	background-size: 1500px 800px;
-	background-color: white;
-	background-attachment: fixed;
-	overflow: auto;
-}
-body.pokemonGo{
+body{
 	background-color:#FFF2D1;
 }
 
@@ -83,11 +66,16 @@ div.startButton {
 	font-size: 22;
 	background-color: white;
 	padding: 4px;
-	top: 50%;
+	top: 40%;
 	left: 45%; 
 	width: 190px; 
 	height: 40px; 
 	position: absolute; 
 	margin-top: -0px; 
 	margin-left: -0px;
+}
+div.textToCentre{
+	position: absolute; 
+	top: 35%; left: 47%; 
+	width: 40px
 }
