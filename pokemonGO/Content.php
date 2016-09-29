@@ -3,35 +3,33 @@
 
 class Content {
 
-	static $arrayItem = array( 
-		0 => array("href" =>"index.php", "img" => "./img/logo1.png", "width" => 100, "height" => 60, "alt" => "Pokemon", 'path'=> './assets/index.html'),
-		1 => array("href" => "index.php?page=1", "name" => "About", "id" => 1, 'path'=> './assets/about.html'),
-		2 => array("href" => "index.php?page=2", "name" => "Start", "id" => 2, 'path'=> './assets/start.html'),
-		3 => array("href" => "index.php?page=3", "name" => "Top List", "id" => 3, 'path'=> './assets/topList.html')
+	static $arrayItemMenu = array(
+		1 => array("href" => "index.php?page=1", "name" => "About", 'path'=> './assets/about.html'),
+		2 => array("href" => "index.php?page=2", "name" => "Start", 'path'=> './assets/start.html'),
+		3 => array("href" => "index.php?page=3", "name" => "Top List", 'path'=> './assets/topList.html')
 		);
-	
-	public static function currentPage($numberPage) {
 
-		$bord = "bord";
-		$activeBord = "bordActiveLink";
+	public static function getCurrentPage($numberPage) {
+ 
+ 		$logo =  '<a href= ' . '"index.php">' . "<img src =" . '"./img/logo1.png"' . "alt =" .  "Pokemon " . "class = " . '"logoMenu">';
+		$currentPage = '<ul class="hr"><center>' . '<li>'. $logo . '</a></li>';
 
-    	echo'<ul class="hr"><center>';
-		foreach (self::$arrayItem as $item ){
-			if ($item[href] == "index.php")
-				echo "<li><a href= 'item[href]'> <img src = '$item[img]' width = '$item[width]' height = '$item[height]' alt = '$item[alt]>'</a></li>";
+		foreach (self::$arrayItemMenu as  $key => $value){
+    		if($key == $numberPage)
+    			$currentPage = $currentPage . "<li> <a class = ". '"bordActiveLink"' . " href= '$value[href]'> $value[name] </a> </li>";
     		else 
-    			if($item[id] == $numberPage)
-    				echo "<li> <a class = '$activeBord' href= '$item[href]'> $item[name] </a> </li>";
-    			else echo "<li> <a class = '$bord' href= '$item[href]'> $item[name] </a> </li>";
+    			$currentPage = $currentPage . "<li> <a class = " . '"bord"' . " href= '$value[href]'> $value[name] </a> </li>";
 		}
-		echo'</center></ul>';
+		
+		return $currentPage = $currentPage . '</center></ul>';
 	}
 
-	public static function getContent($numberPage){
+	public static function getCurrentPageContent($numberPage){
+
 		if ($numberPage>=1 && $numberPage <=3)
-			echo file_get_contents(self::$arrayItem[$numberPage][path]);
+			return file_get_contents(self::$arrayItemMenu[$numberPage][path]);
 		else 
-			echo file_get_contents(self::$arrayItem[0][path]);
+			return file_get_contents('./assets/index.html');
 	}
 
 }

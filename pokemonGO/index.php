@@ -6,6 +6,6 @@
 			<link rel="stylesheet" type="text/css" href="./css/styles.css">
         </head> 
         <body>
-        <?php require ('Content.php'); Content::currentPage($_GET['page']); Content::getContent($_GET['page']);?>
+        <?php require ('Content.php'); echo Content::getCurrentPage($_GET['page']); echo Content::getCurrentPageContent($_GET['page']);?>
         </body>
     </html>
