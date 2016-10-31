@@ -1,0 +1,8 @@
+<div menu>
+<div ng-controller="pagesController">
+<ul class="hr" >
+	<center> <li><a ng-href="#/page/0"> <img src ="./img/logo1.png" class = "logoMenu"> </a> </li>
+	<li> <a ng-repeat = "item in names" class = {{getStyle(item.id)}} ng-href= "#/page/{{item.id}}"> {{item.title}} </a> </li></center>
+</ul>
+</div>	
+</div>

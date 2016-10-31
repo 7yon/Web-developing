@@ -1,0 +1,100 @@
+a {
+	font-family: Century Gothic;
+	font-size: 22;	
+	text-decoration: none;
+}
+a.bord {
+    padding: 5px;
+	background-color: white;	
+}
+a:visited { 
+	color: black;
+} 
+a:hover {    
+    color: red; 	
+} 
+ul.hr {
+    margin: 0; 
+    padding: 4px;
+}
+ul.hr li {
+    display: inline; /* Отображать как строчный элемент */
+	font-family: Century Gothic;
+	font-size: 18;
+	text-indent: 40px;
+}
+
+ul.forLi {
+    width: 1%;
+    margin: auto;
+}
+	
+li.list {
+	font-family: Century Gothic;
+    margin:0px auto 0px auto;
+	text-align: center;
+	font-weight: 600;
+	font-size: 18;
+	white-space: nowrap;
+}
+a.bordActiveLink {
+    padding: 5px;
+	pointer-events: none;
+	background-color: #ffd622;
+}
+p.styleText{
+	font-family: Century Gothic;
+	font-size: 18;
+	text-indent: 40px;
+}
+body{
+	background-color:#FFF2D1;
+}
+
+img.rightimg  {
+    float: right; /* Выравнивание по правому краю  */ 
+    margin: 7px 0 7px 7px; /* Отступы вокруг картинки */
+}
+   
+img.leftimg  {
+    float: left; /* Выравнивание по правому краю  */ 
+    margin: 7px 0 7px 7px; /* Отступы вокруг картинки */
+}
+   
+button.startButton {
+	border: 1px solid black;
+	text-align: solid center ;
+	font-size: 20;
+	background-color: white;
+	padding: 4px;
+	top: 40%;
+	left: 45%; 
+	width: 190px; 
+	height: 40px; 
+	position: absolute; 
+	margin-top: -0px; 
+	margin-left: -0px;
+}
+div.textToCentre{
+	position: absolute; 
+	top: 35%; left: 47%; 
+	width: 40px
+}
+img.logoMenu{
+	width: 100px;
+	height: 60px;
+}
+
+.pole{
+    position: relative;
+    width: 90%;
+    height: 90%;
+    /*background: #0B580B;*/
+}
+.ball{
+    position: relative;
+    width: 5em;
+    height: 5em;
+    /*background: yellow;*/
+    border-radius: 2em;
+}
