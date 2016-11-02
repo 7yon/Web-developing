@@ -36,7 +36,8 @@ app.config(function($routeProvider) {
     $scope.health=100;
     $scope.score=0;
     $scope.counter = 30;
-    var mytimeout = null; 
+    var mytimeout = null;
+    var score=null; 
 
     $http.get("?controller=pokemon")
     .success(function(response) {
@@ -66,23 +67,34 @@ app.config(function($routeProvider) {
     };
 
     $scope.postUser=function(){
+        console.log($scope.score);
         var person = prompt("Game over! Enter your name here, please", "Your name");
+        $scope.countUsers=0;
 
-        $http({
-            method: 'POST',
-            url: 'http://localhost/?controller=user',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},//application/json {"id": "3", "name": 'Julia', "score":"80"}
-            data: {id: "3", name: 'Julia', score:"80"}
-            })
-            .success(function(data, status, headers, config, url){
-                //alert("ok");
-                // console.log(data);
-                // console.log(url);
-                // console.log(status);
-                // console.log(headers);
-                // console.log(config);
-                //alert(url+"ok");
-        });
+        if(person!=null){
+            $http.get("?controller=user")
+            .success(function(response) {
+                $scope.countUsers = response.length;
+
+                $http({
+                    method: 'POST',
+                    url: 'http://localhost/?controller=user',
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},//application/json {"id": "3", "name": 'Julia', "score":"80"}
+                    transformRequest: function() {
+                    var str = 'id='+ String($scope.countUsers) +'&name='+ String(person) +'&score=' + parseInt(score);
+                    return str;
+                    },
+                    data: {id: String($scope.countUsers), name: String(person), score: parseInt(score)}
+                    })
+                    .success(function(data, status, headers, config, url){
+                    //console.log(String($scope.countUsers)+String(person)+String(score));
+                        $http.get("?controller=user")
+                        .success(function(response) {
+                            $scope.users = response;
+                        });
+                });
+            });
+        }
     };
 
     //Скрываем кнопку START
@@ -144,6 +156,7 @@ app.config(function($routeProvider) {
             alert("You lose");
         }
         else {
+            score=parseInt($scope.score);
             $scope.postUser();
         }
         $scope.unblock('startButton');
@@ -165,17 +178,17 @@ app.config(function($routeProvider) {
         else {
             if($scope.counter>20){
                 $scope.health--;
-                $scope.score=$power*(3+30-$scope.counter)*0.1;
+                $scope.score=Math.round($scope.score + $power*(3+30-$scope.counter)*0.01);
             }
             else
             {
                 if($scope.counter>10){
                     $scope.health=$scope.health-3;
-                    $scope.score=$power*(3+30-$scope.counter)*0.2;
+                    $scope.score=Math.round($scope.score + $power*(3+30-$scope.counter)*0.02);
                 }
                 else {
                     $scope.health=$scope.health-7;
-                    $scope.score=$power*(3+30-$scope.counter)*0.3;
+                    $scope.score=Math.round($scope.score + $power*(3+30-$scope.counter)*0.03);
                 }
             }
         }
@@ -186,6 +199,9 @@ app.config(function($routeProvider) {
        console.log(data);
      });
 
+    $scope.toInt=function($string){
+        return parseInt($string);
+    }
 })
 .directive("menu", function(){
 
@@ -223,8 +239,7 @@ app.config(function($routeProvider) {
                     tic++;
                     $scope.ballPos.X=50*Math.sin(tic/50);
                     $scope.ballPos.Y=20*Math.cos(tic/20);
-                },15*level*$scope.speed/20);  
-                //alert("START");
+                },30*$scope.speed/10);  
             };
 
             $scope.stopMove=function(){

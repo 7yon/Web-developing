@@ -29,7 +29,7 @@ if($response){
 	echo json_encode($response);
 	}
 }
-else
-{
-	header("HTTP/1.0 404 Not Found"); // если ответило false то выводим ошибку	
-}
+// else
+// {
+// 	header("HTTP/1.0 404 Not Found"); // если ответило false то выводим ошибку	
+// }
