@@ -1,14 +1,16 @@
 <div ng-controller="pagesController">
-  
-	<menu current="page"></menu>	
-	<!-- <div class="startButton"> <center><strong>I WANT TO START!</strong></center></a></div>	 -->
-	<center><strong><br><button ng-click="start()">START</button></br>
 
-	<br><button ng-click="stop()">Finish the game...</button></br></strong></center>
+  	<menu current="page"></menu>	
 
-	<div class="pole">
-		<!-- <img src="./img/dracaufeu.png" class="ball" width = 100 height = 100 style="left:{{50+ballPos.X}}%;top:{{20+ballPos.Y}}%">	 -->
-		<img src="./img/2.png" class="ball" width = 100 height = 100 style="left:{{50+ballPos.X}}%;top:{{20+ballPos.Y}}%">	
+	<div ng-controller="gameController">
+			<div class="timer"><p>Until the end of the game: {{counter}}</p></div>
+
+			<br><div id= "startButton" class="start" ng-click="startTimer()">Start</div>
+			<div class="finish" ng-click="stopTimer()">Finish</div></br>
+			
+			<pokemon></pokemon>
+
+			<div class="health"><p>Health: {{health}}</p></div>
+			<div class="score"><p>Score: {{score}}</p></div>
 	</div>
-
 </div>

@@ -9,6 +9,7 @@ class Content {
 		3 => array("href" => "index.php?page=3", "name" => "Top List", 'path'=> './assets/topList.html')
 		);
 
+
 	public static function getCurrentPage($numberPage) {
  
  		$logo =  '<a href= ' . '"index.php">' . "<img src =" . '"./img/logo1.png"' . "alt =" .  "Pokemon " . "class = " . '"logoMenu">';
@@ -20,7 +21,10 @@ class Content {
     		else 
     			$currentPage = $currentPage . "<li> <a class = " . '"bord"' . " href= '$value[href]'> $value[name] </a> </li>";
 		}
-		
+
+		$l=  array(' href' => 'index.php', 'img'=>'./img/logo1.png', 'alt' =>'Pokemon', 'class' =>'logoMenu');
+		echo json_encode($l);
+
 		return $currentPage = $currentPage . '</center></ul>';
 	}
 
