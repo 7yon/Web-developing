@@ -5,7 +5,7 @@
 	<div ng-controller="gameController">
 			<div class="timer"><p>Until the end of the game: {{counter}}</p></div>
 
-			<br><div id= "startButton" class="start" ng-click="startTimer()">Start</div>
+			<br><div id= "startButton" class="start" ng-click="startTimer()" ng-show="startButtonVisible">Start</div>
 			<div class="finish" ng-click="stopTimer()">Finish</div></br>
 			
 			<pokemon></pokemon>

@@ -2,7 +2,8 @@
 
 var app = angular.module("lection", ["ngRoute", "ngResource"]);
 
-app.config(function($routeProvider) {
+app.config(function($routeProvider, $logProvider) {
+    $logProvider.debugEnabled(true);
     $routeProvider
     .when("/page/:id", {
         templateUrl : function(page){
@@ -11,6 +12,7 @@ app.config(function($routeProvider) {
         controller: "pagesController"
     })
     .otherwise("/page/0");
+    
 })
 .controller("pagesController",function($scope,$log,$rootScope,$routeParams,$interval, $http){
 	$scope.page=parseInt($routeParams.id) || 0;
@@ -28,7 +30,7 @@ app.config(function($routeProvider) {
     });
 
 })
-.controller('gameController',function($scope,$log,$rootScope,$interval, $timeout,$http){
+.controller('gameController',function($scope,$log,$rootScope,$routeParams,$interval, $timeout,$http){
 
     $scope.pokemons=null;   
     $scope.currentLevel=1;
@@ -36,6 +38,7 @@ app.config(function($routeProvider) {
     $scope.health=100;
     $scope.score=0;
     $scope.counter = 30;
+    $scope.startButtonVisible=true;
     var mytimeout = null;
     var score=null; 
 
@@ -45,7 +48,7 @@ app.config(function($routeProvider) {
     });
 
     $scope.start = function(){
-        console.log("start");
+        //$log.debug("start");
       $scope.$broadcast('startMove', $scope.pokemons[$scope.currentLevel-1]);
     };
 
@@ -54,7 +57,7 @@ app.config(function($routeProvider) {
     };
 
     $scope.startGame=function(){
-        console.log("startGame");
+        //$log.debug("startGame");
         if($scope.currentLevel <= $scope.pokemons.length){
             alert("Level "+ $scope.currentLevel);
             $scope.start();
@@ -67,7 +70,7 @@ app.config(function($routeProvider) {
     };
 
     $scope.postUser=function(){
-        console.log($scope.score);
+        //$log.debug($scope.score);
         var person = prompt("Game over! Enter your name here, please", "Your name");
         $scope.countUsers=0;
 
@@ -76,54 +79,37 @@ app.config(function($routeProvider) {
             .success(function(response) {
                 $scope.countUsers = response.length;
 
-                $http({
-                    method: 'POST',
-                    url: 'http://localhost/?controller=user',
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},//application/json {"id": "3", "name": 'Julia', "score":"80"}
-                    transformRequest: function() {
-                    var str = 'id='+ String($scope.countUsers) +'&name='+ String(person) +'&score=' + parseInt(score);
-                    return str;
-                    },
-                    data: {id: String($scope.countUsers), name: String(person), score: parseInt(score)}
-                    })
+                $http.post('?controller=user',
+                    {id: String($scope.countUsers), name: String(person), score: parseInt(score)})
                     .success(function(data, status, headers, config, url){
-                    //console.log(String($scope.countUsers)+String(person)+String(score));
                         $http.get("?controller=user")
                         .success(function(response) {
                             $scope.users = response;
                         });
-                });
+                    });
             });
         }
     };
 
-    //Скрываем кнопку START
-    $scope.block = function($nameElement){
-        document.getElementById($nameElement).style.visibility = "hidden";
-    };
-
-    $scope.unblock=function($nameElement){
-        document.getElementById($nameElement).style.visibility = "visible";
-    };
-
-
     $scope.onTimeout = function() {
-        console.log("onTimeout");
+        //$log.debug("onTimeout");
         if($scope.counter ===  0) { //если на таймере 0
             if($scope.score==0){//если 0 очков
-                $scope.unblock('startButton');
+                $scope.startButtonVisible=true;
+                //$scope.unblock('startButton');
                 $scope.stopTimer();
                 return;
             }
             else {//если очков больше, чем 0
                 if($scope.end){//если это конец и уровней больше нет
-                    $scope.unblock('startButton');
+                    //$scope.unblock('startButton');
+                    $scope.startButtonVisible=true;
                     $scope.postUser();
                     $scope.stop();
                     return;
                 }
                 else{//если остались не пройденные уровни
-                    console.log("onTimeout level 2");
+                    //$log.debug("onTimeout level 2");
                     $scope.end=false;
                     $scope.$broadcast('timer-stopped', $scope.counter);
                     $scope.counter = 30;
@@ -140,8 +126,9 @@ app.config(function($routeProvider) {
 
     $scope.startTimer = function() {
         if(!$scope.end){//если не все уровни пройдены или не нажата кнопка finish
-            console.log("startTimer");
-            $scope.block('startButton');
+            //$log.debug("startTimer");
+            $scope.startButtonVisible=false;
+            //$scope.block('startButton');
             $scope.health=100;
             mytimeout = $timeout($scope.onTimeout, 1000);
             $scope.startGame();
@@ -159,7 +146,8 @@ app.config(function($routeProvider) {
             score=parseInt($scope.score);
             $scope.postUser();
         }
-        $scope.unblock('startButton');
+        $scope.startButtonVisible=true;
+        //$scope.unblock('startButton');
         $scope.stop();
         $scope.currentLevel=1;
         $scope.end=false;
@@ -196,7 +184,7 @@ app.config(function($routeProvider) {
 
     $scope.$on('changeScore',function(event, data){
        $scope.changeScore(data);
-       console.log(data);
+       //$log.debug(data);
      });
 
     $scope.toInt=function($string){
@@ -212,12 +200,7 @@ app.config(function($routeProvider) {
             scope: {
                 current: '='
             },
-        	controller: function($scope){
-			$scope.getStyle=function($item){
-				if ($item == $scope.current)				
-				 	return "bordActiveLink";
-				 else return "bord";             
-			};		
+        	controller: function($scope){		
 		}
 	}
 })
@@ -233,7 +216,7 @@ app.config(function($routeProvider) {
             var level=0;
 
             $scope.startMove=function(){
-                console.log("startMove");
+                //$log.debug("startMove");
 
                 tictac=$interval(function(){
                     tic++;
@@ -243,7 +226,7 @@ app.config(function($routeProvider) {
             };
 
             $scope.stopMove=function(){
-                console.log("stopMove");
+                //$log.debug("stopMove");
                 $interval.cancel(tictac);
             };
 
@@ -257,9 +240,9 @@ app.config(function($routeProvider) {
                 $scope.ballPos={'X':0, 'Y':0};
                 tictac=0;
                 tic=0;
-                console.log("startMoveOn"+data.speed);
+                //$log.debug("startMoveOn"+data.speed);
                 level++;
-                console.log(level);
+                //$log.debug(level);
                 $scope.speed=data.speed;
                 $scope.power=data.power;
                 $scope.size={'width':100,'height':100};
@@ -270,14 +253,14 @@ app.config(function($routeProvider) {
              });
 
             $scope.$on('stopMove',function(event, data){
-                console.log("OnStopMove");
+                //$log.debug("OnStopMove");
                $scope.stopMove();
              });
             },
             controller: function($scope,$http){
 
                 $scope.clickPokemon=function(){
-                    console.log("clickToPokemon");
+                    //$log.debug("clickToPokemon");
                     $scope.$emit('changeScore', $scope.power);
                 };             
             }
